@@ -41,7 +41,7 @@ class RoleIndex extends Component
             ->timer(2000)
             ->show();
 
-        $this->redirectRoute('role.index');
+        $this->redirectRoute('role.index', navigate: true);
     }
 
     #[Layout('layouts.app')]

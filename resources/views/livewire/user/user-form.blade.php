@@ -9,6 +9,17 @@
         <flux:input wire:model="form.email" label="Email" type="email" />
         <flux:input wire:model="form.name" label="Name" type="text" />
 
+        <flux:fieldset>
+            <flux:legend>Roles</flux:legend>
+            <flux:description>Assign roles to this user.</flux:description>
+            <div class="flex flex-wrap gap-4 *:gap-x-2">
+                @foreach ($this->form->roles as $role)
+                    <flux:checkbox wire:model="form.selectedRoles" value="{{ $role }}"
+                        label="{{ str($role)->headline() }}" />
+                @endforeach
+            </div>
+        </flux:fieldset>
+
         @if ($this->form->formType == 'create')
             <flux:input wire:model="form.password" label="Password" type="password" />
         @endif

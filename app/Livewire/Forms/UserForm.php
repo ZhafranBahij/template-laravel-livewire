@@ -6,12 +6,20 @@ use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
+use Spatie\Permission\Models\Role;
 
 class UserForm extends Form
 {
     public User $user;
     public $name, $email, $password, $profile;
+    public array $roles = [];
+    public array $selectedRoles = [];
     public $formType = 'create';
+
+    public function setFirst()
+    {
+        $this->roles = Role::pluck('name')->toArray();
+    }
 
     public function setData(User $user)
     {
@@ -19,6 +27,7 @@ class UserForm extends Form
         $this->name = $user->name;
         $this->email = $user->email;
         $this->formType = 'edit';
+        $this->selectedRoles = User::find($user->id)->roles->pluck('name')->toArray();
     }
 
     protected function rules()
@@ -45,8 +54,7 @@ class UserForm extends Form
 
         DB::transaction(function () use ($data) {
             $user = User::create($data);
-
-            $user->assignRole('user');
+            $user->syncRoles($this->selectedRoles);
 
             if ($this->profile) {
                 $user->addMedia($this->profile)->toMediaCollection('profile');
@@ -61,6 +69,8 @@ class UserForm extends Form
 
         DB::transaction(function () use ($data) {
             $this->user->update($data);
+            $this->user->syncRoles($this->selectedRoles);
+
             if ($this->profile) {
                 $this->user->clearMediaCollection('profile');
                 $this->user->addMedia($this->profile)->toMediaCollection('profile');

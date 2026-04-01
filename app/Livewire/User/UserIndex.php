@@ -45,7 +45,7 @@ class UserIndex extends Component
             ->timer(2000)
             ->show();
 
-        $this->redirectRoute('user.index');
+        $this->redirectRoute('user.index', navigate: true);
     }
 
     #[Layout('layouts.app')]

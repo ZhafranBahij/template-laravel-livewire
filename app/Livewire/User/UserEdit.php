@@ -16,6 +16,7 @@ class UserEdit extends Component
 
     public function mount(User $user)
     {
+        $this->form->setFirst();
         $this->form->setData($user);
     }
 
@@ -25,7 +26,7 @@ class UserEdit extends Component
 
         Session::flash('message', 'User successfully updated.');
 
-        $this->redirectRoute('user.index');
+        $this->redirectRoute('user.index', navigate: true);
     }
 
     #[Layout('layouts.app')]

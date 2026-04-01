@@ -19,7 +19,7 @@
                     wire:navigate>
                     {{ __('Dashboard') }}
                 </flux:sidebar.item>
-                <flux:sidebar.item icon="home" :href="route('role.index')" :current="request()->routeIs('user.*')"
+                <flux:sidebar.item icon="home" :href="route('role.index')" :current="request()->routeIs('role.*')"
                     wire:navigate>
                     {{ __('Role') }}
                 </flux:sidebar.item>

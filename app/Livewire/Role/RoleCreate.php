@@ -13,7 +13,7 @@ class RoleCreate extends Component
 
     public function mount()
     {
-        //
+        $this->form->setFirst();
     }
 
     public function submit()
@@ -22,7 +22,7 @@ class RoleCreate extends Component
 
         Session::flash('message', 'Role successfully created.');
 
-        $this->redirectRoute('role.index');
+        $this->redirectRoute('role.index', navigate: true);
     }
 
     #[Layout('layouts.app')]

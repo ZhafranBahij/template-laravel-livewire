@@ -14,6 +14,7 @@ class RoleEdit extends Component
 
     public function mount(Role $role)
     {
+        $this->form->setFirst();
         $this->form->setData($role);
     }
 
@@ -23,7 +24,7 @@ class RoleEdit extends Component
 
         Session::flash('message', 'Role successfully updated.');
 
-        $this->redirectRoute('role.index');
+        $this->redirectRoute('role.index', navigate: true);
     }
 
     #[Layout('layouts.app')]

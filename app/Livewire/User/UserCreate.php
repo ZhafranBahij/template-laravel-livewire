@@ -15,7 +15,7 @@ class UserCreate extends Component
 
     public function mount()
     {
-        //
+        $this->form->setFirst();
     }
 
     public function submit()
@@ -24,7 +24,7 @@ class UserCreate extends Component
 
         Session::flash('message', 'User successfully created.');
 
-        $this->redirectRoute('user.index');
+        $this->redirectRoute('user.index', navigate: true);
     }
 
     #[Layout('layouts.app')]

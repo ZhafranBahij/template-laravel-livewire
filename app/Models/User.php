@@ -21,9 +21,9 @@ class User extends Authenticatable implements HasMedia
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable, TwoFactorAuthenticatable;
+
     use HasRoles;
     use InteractsWithMedia;
-
 
     /**
      * Get the attributes that should be cast.
@@ -46,7 +46,7 @@ class User extends Authenticatable implements HasMedia
         return Str::of($this->name)
             ->explode(' ')
             ->take(2)
-            ->map(fn($word) => Str::substr($word, 0, 1))
+            ->map(fn ($word) => Str::substr($word, 0, 1))
             ->implode('');
     }
 }

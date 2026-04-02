@@ -12,6 +12,7 @@ use Spatie\LivewireFilepond\WithFilePond;
 class UserEdit extends Component
 {
     use WithFilePond;
+
     public UserForm $form;
 
     public function mount(User $user)

@@ -2,7 +2,6 @@
 
 namespace App\Livewire\Role;
 
-use Illuminate\Support\Facades\Session;
 use Jantinnerezo\LivewireAlert\Facades\LivewireAlert;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
@@ -58,7 +57,7 @@ class RoleIndex extends Component
     {
 
         $roles = Role::query()
-            ->where('name', 'like', '%' . $this->search . '%')
+            ->where('name', 'like', '%'.$this->search.'%')
             ->latest()
             ->paginate(10);
 

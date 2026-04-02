@@ -3,15 +3,14 @@
 namespace App\Livewire\User;
 
 use App\Models\User;
-use Illuminate\Support\Facades\Gate;
 use Jantinnerezo\LivewireAlert\Facades\LivewireAlert;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
 class UserIndex extends Component
 {
-
     public $search = '';
+
     public $role = '';
 
     public function mount()
@@ -65,7 +64,7 @@ class UserIndex extends Component
             ->when($this->role, function ($query) {
                 return $query->role($this->role);
             })
-            ->where('name', 'like', '%' . $this->search . '%')
+            ->where('name', 'like', '%'.$this->search.'%')
             ->latest()
             ->paginate(10);
 

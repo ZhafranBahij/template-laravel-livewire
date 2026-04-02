@@ -4,16 +4,25 @@ namespace App\Livewire\Forms;
 
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
-use Livewire\Attributes\Validate;
 use Livewire\Form;
 use Spatie\Permission\Models\Role;
 
 class UserForm extends Form
 {
     public User $user;
-    public $name, $email, $password, $profile;
+
+    public $name;
+
+    public $email;
+
+    public $password;
+
+    public $profile;
+
     public array $roles = [];
+
     public array $selectedRoles = [];
+
     public $formType = 'create';
 
     public function setFirst()

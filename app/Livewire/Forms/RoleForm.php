@@ -3,7 +3,6 @@
 namespace App\Livewire\Forms;
 
 use Illuminate\Support\Facades\DB;
-use Livewire\Attributes\Validate;
 use Livewire\Form;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -11,16 +10,20 @@ use Spatie\Permission\Models\Role;
 class RoleForm extends Form
 {
     public Role $role;
+
     public $name;
+
     public array $selectedPermissions = [];
+
     public array $groupedPermissions = [];
+
     public $formType = 'create';
 
     public function setFirst()
     {
         // Group permissions by resource (e.g. "user", "role")
         $this->groupedPermissions = Permission::all()
-            ->groupBy(fn($p) => str($p->name)->before('.')->toString())
+            ->groupBy(fn ($p) => str($p->name)->before('.')->toString())
             ->toArray();
     }
 

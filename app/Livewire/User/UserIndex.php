@@ -3,6 +3,7 @@
 namespace App\Livewire\User;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Gate;
 use Jantinnerezo\LivewireAlert\Facades\LivewireAlert;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
@@ -15,6 +16,8 @@ class UserIndex extends Component
 
     public function mount()
     {
+        $this->authorize('viewAny', User::class);
+
         if (session()->has('message')) {
             LivewireAlert::title(Session('message'))
                 ->success()
@@ -24,6 +27,9 @@ class UserIndex extends Component
 
     public function delete($id)
     {
+        $user = User::findOrFail($id);
+        $this->authorize('delete', $user);
+
         LivewireAlert::title('Delete Item')
             ->text('Are you sure you want to delete this item?')
             ->asConfirm()
@@ -36,6 +42,9 @@ class UserIndex extends Component
         //
 
         $itemId = $data['id'];
+
+        $user = User::findOrFail($itemId);
+        $this->authorize('delete', $user);
 
         User::destroy($itemId);
 

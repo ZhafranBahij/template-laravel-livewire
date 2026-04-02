@@ -16,12 +16,16 @@ class UserEdit extends Component
 
     public function mount(User $user)
     {
+        $this->authorize('update', $user);
+
         $this->form->setFirst();
         $this->form->setData($user);
     }
 
     public function submit()
     {
+        $this->authorize('update', $this->form->user);
+
         $this->form->update();
 
         Session::flash('message', 'User successfully updated.');

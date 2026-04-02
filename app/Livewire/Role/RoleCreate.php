@@ -6,6 +6,7 @@ use App\Livewire\Forms\RoleForm;
 use Illuminate\Support\Facades\Session;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
+use Spatie\Permission\Models\Role;
 
 class RoleCreate extends Component
 {
@@ -13,11 +14,15 @@ class RoleCreate extends Component
 
     public function mount()
     {
+        $this->authorize('create', Role::class);
+
         $this->form->setFirst();
     }
 
     public function submit()
     {
+        $this->authorize('create', Role::class);
+
         $this->form->store();
 
         Session::flash('message', 'Role successfully created.');

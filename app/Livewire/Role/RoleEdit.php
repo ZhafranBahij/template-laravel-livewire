@@ -14,12 +14,16 @@ class RoleEdit extends Component
 
     public function mount(Role $role)
     {
+        $this->authorize('update', $role);
+
         $this->form->setFirst();
         $this->form->setData($role);
     }
 
     public function submit()
     {
+        $this->authorize('update', $this->form->role);
+
         $this->form->update();
 
         Session::flash('message', 'Role successfully updated.');

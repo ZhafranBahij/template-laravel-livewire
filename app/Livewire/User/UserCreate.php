@@ -3,6 +3,7 @@
 namespace App\Livewire\User;
 
 use App\Livewire\Forms\UserForm;
+use App\Models\User;
 use Illuminate\Support\Facades\Session;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
@@ -15,11 +16,15 @@ class UserCreate extends Component
 
     public function mount()
     {
+        $this->authorize('create', User::class);
+
         $this->form->setFirst();
     }
 
     public function submit()
     {
+        $this->authorize('create', User::class);
+
         $this->form->store();
 
         Session::flash('message', 'User successfully created.');

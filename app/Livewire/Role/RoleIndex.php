@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Role;
 
+use Illuminate\Support\Facades\Session;
 use Jantinnerezo\LivewireAlert\Facades\LivewireAlert;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
@@ -13,6 +14,8 @@ class RoleIndex extends Component
 
     public function mount()
     {
+        $this->authorize('viewAny', Role::class);
+
         if (session()->has('message')) {
             LivewireAlert::title(Session('message'))
                 ->success()
@@ -22,6 +25,9 @@ class RoleIndex extends Component
 
     public function delete($id)
     {
+        $role = Role::findOrFail($id);
+        $this->authorize('delete', $role);
+
         LivewireAlert::title('Delete Item')
             ->text('Are you sure you want to delete this item?')
             ->asConfirm()
@@ -32,6 +38,9 @@ class RoleIndex extends Component
     public function deleteItem($data)
     {
         $itemId = $data['id'];
+
+        $role = Role::findOrFail($itemId);
+        $this->authorize('delete', $role);
 
         Role::destroy($itemId);
 
